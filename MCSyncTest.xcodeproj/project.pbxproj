@@ -19,6 +19,7 @@
 		11A9262D2B6A89110087C753 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		11A9262F2B6A89120087C753 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		11A926322B6A89120087C753 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		11A926392B6A8DF70087C753 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +52,7 @@
 		11A9262A2B6A89110087C753 /* MCSyncTest */ = {
 			isa = PBXGroup;
 			children = (
+				11A926392B6A8DF70087C753 /* Info.plist */,
 				11A9262B2B6A89110087C753 /* MCSyncTestApp.swift */,
 				11A9262D2B6A89110087C753 /* ContentView.swift */,
 				11A9262F2B6A89120087C753 /* Assets.xcassets */,
@@ -275,6 +277,8 @@
 				DEVELOPMENT_TEAM = BJSB46UB53;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MCSyncTest/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "GST[AR] uses local device communication to enable collaborative experiences.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -304,6 +308,8 @@
 				DEVELOPMENT_TEAM = BJSB46UB53;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MCSyncTest/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "GST[AR] uses local device communication to enable collaborative experiences.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
