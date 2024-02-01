@@ -5,12 +5,12 @@
 //  Created by Björn Wieczoreck on 31.01.24.
 //
 
-import SwiftUI
 import MultipeerConnectivity
+import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var sessionHelper = SessionHelper()
-    
+
     var body: some View {
         VStack {
             ForEach(sessionHelper.foundPeers) { peer in
@@ -33,40 +33,40 @@ struct ContentView: View {
 extension MCPeerID: Identifiable {}
 
 class SessionHelper: NSObject, ObservableObject {
-    static let shared: SessionHelper = SessionHelper()
-    
+    static let shared: SessionHelper = .init()
+
     static let serviceType = "mctest"
     let myPeerID = MCPeerID(displayName: UIDevice.current.name)
-    
+
     @Published var foundPeers = [MCPeerID]()
     var session: MCSession?
     var advertiser: MCNearbyServiceAdvertiser?
     var browser: MCNearbyServiceBrowser?
-    
+
     var internalSliderValue = 0.0
-    
+
     @Published var sliderValue = 0.0 {
         didSet {
             if internalSliderValue != sliderValue {
                 internalSliderValue = sliderValue
                 do {
-                    try self.sendUpdate(newVal: sliderValue)
+                    try sendUpdate(newVal: sliderValue)
                 } catch {
                     print(error)
                 }
             }
         }
     }
-    
+
     func startAdvertising() {
         session = MCSession(
             peer: myPeerID,
             securityIdentity: nil,
             encryptionPreference: .required
         )
-        
+
         session?.delegate = self
-        
+
         advertiser = MCNearbyServiceAdvertiser(
             peer: myPeerID,
             discoveryInfo: nil,
@@ -76,7 +76,7 @@ class SessionHelper: NSObject, ObservableObject {
         advertiser?.startAdvertisingPeer()
         print("started advertising")
     }
-    
+
     func startBrowsing() {
         foundPeers = [MCPeerID]()
         if browser == nil {
@@ -89,7 +89,7 @@ class SessionHelper: NSObject, ObservableObject {
         browser?.startBrowsingForPeers()
         print("started browsing")
     }
-    
+
     func joinSession(peerID: MCPeerID) {
         session = MCSession(
             peer: myPeerID,
@@ -101,7 +101,7 @@ class SessionHelper: NSObject, ObservableObject {
             browser?.invitePeer(peerID, to: session, withContext: nil, timeout: 0)
         }
     }
-    
+
     func sendUpdate(newVal: Double) throws {
         guard let session = session else {
             return
@@ -158,7 +158,7 @@ extension SessionHelper: MCSessionDelegate {
         }
     }
 
-    func session(_: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+    func session(_: MCSession, didReceive data: Data, fromPeer _: MCPeerID) {
         print("received data")
         DispatchQueue.main.async {
             print("doing stuff")
@@ -188,15 +188,14 @@ extension SessionHelper: MCSessionDelegate {
 }
 
 extension Data {
-
     init<T>(from value: T) {
         self = Swift.withUnsafeBytes(of: value) { Data($0) }
     }
 
-    func to<T>(type: T.Type) -> T? where T: ExpressibleByIntegerLiteral {
+    func to<T>(type _: T.Type) -> T? where T: ExpressibleByIntegerLiteral {
         var value: T = 0
         guard count >= MemoryLayout.size(ofValue: value) else { return nil }
-        _ = Swift.withUnsafeMutableBytes(of: &value, { copyBytes(to: $0)} )
+        _ = Swift.withUnsafeMutableBytes(of: &value) { copyBytes(to: $0) }
         return value
     }
 }
